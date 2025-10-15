@@ -101,6 +101,14 @@ export class ApiService {
     // Tools
     eval: '/eval',
 
+    // Message
+    messageStatus: '/message/status',
+    messageStatusUp: '/message/status/up',
+    messageStatusDown: '/message/status/down',
+    messageAlternate: '/message/alternate',
+    messageAlternateUp: '/message/alternate/up',
+    messageAlternateDown: '/message/alternate/down',
+
   };
 
   constructor(
@@ -953,5 +961,40 @@ export class ApiService {
       }
     });
     return new HttpParams({ fromObject: paramsObject });
+  }
+
+  getMessageStatus(): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageStatus;
+    return this.httpClient.get<any>(url)
+      .pipe(catchError(err => ApiService._handleError(err)));
+  }
+  setMessageStatusUp(message: string): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageStatusUp;
+    return this.httpClient
+      .put<any>(url, { message })
+      .pipe(catchError(err => ApiService._handleError(err)));
+  }
+  setMessageStatusDown(): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageStatusDown;
+    return this.httpClient
+      .put<any>(url, { message: null })
+      .pipe(catchError(err => ApiService._handleError(err)));
+  }
+  getMessageAlternate(): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageAlternate;
+    return this.httpClient.get<any>(url)
+      .pipe(catchError(err => ApiService._handleError(err)));
+  }
+  setMessageAlternateUp(message: string): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageAlternateUp;
+    return this.httpClient
+      .put<any>(url, { message })
+      .pipe(catchError(err => ApiService._handleError(err)));
+  }
+  setMessageAlternateDown(): Observable<any> {
+    const url = this.apiRoot + this.endpoints.messageAlternateDown;
+    return this.httpClient
+      .put<any>(url, { message: null })
+      .pipe(catchError(err => ApiService._handleError(err)));
   }
 }
